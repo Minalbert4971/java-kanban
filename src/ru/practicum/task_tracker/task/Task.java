@@ -1,11 +1,13 @@
 package ru.practicum.task_tracker.task;
 
+import ru.practicum.task_tracker.enums.Status;
+
 import java.util.Objects;
 
 public class Task {
     private Integer id;
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
     private Status status;
 
     public Task(String name, String description, Status status) {
@@ -21,8 +23,7 @@ public class Task {
         this.status = status;
     }
 
-    public Task(Integer id, String name, String description) {
-        this.id = id;
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -39,16 +40,8 @@ public class Task {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Status getStatus() {
