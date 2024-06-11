@@ -1,6 +1,6 @@
-package ru.practicum.task_tracker.task;
+package ru.practicum.tasktracker.task;
 
-import ru.practicum.task_tracker.enums.Status;
+import ru.practicum.tasktracker.enums.Status;
 
 public class Subtask extends Task {
 

@@ -1,8 +1,8 @@
-package ru.practicum.task_tracker.manager;
+package ru.practicum.tasktracker.manager;
 
-import ru.practicum.task_tracker.task.Epic;
-import ru.practicum.task_tracker.task.Subtask;
-import ru.practicum.task_tracker.task.Task;
+import ru.practicum.tasktracker.task.Epic;
+import ru.practicum.tasktracker.task.Subtask;
+import ru.practicum.tasktracker.task.Task;
 
 import java.util.List;
 
@@ -45,5 +45,4 @@ public interface TaskManager {
 
     List<Task> getHistory();
 
-    void updateEpicStatus(Epic epic);
 }

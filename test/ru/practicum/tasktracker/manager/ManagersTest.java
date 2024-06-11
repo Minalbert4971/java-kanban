@@ -1,4 +1,4 @@
-package ru.practicum.task_tracker.manager;
+package ru.practicum.tasktracker.manager;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;

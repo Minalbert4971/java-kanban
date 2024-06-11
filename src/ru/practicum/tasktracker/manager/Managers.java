@@ -1,4 +1,4 @@
-package ru.practicum.task_tracker.manager;
+package ru.practicum.tasktracker.manager;
 
 public class Managers {
 
