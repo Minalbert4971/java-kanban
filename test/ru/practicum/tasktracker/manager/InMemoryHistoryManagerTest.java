@@ -88,7 +88,7 @@ public class InMemoryHistoryManagerTest {
         inMemoryTaskManager.createTask(new Task("Имя", "Описание"));
         Epic epic1 = inMemoryTaskManager.createEpic(new Epic("Имя эпика", "Описание эпика", Status.NEW));
         inMemoryTaskManager.createSubtask(new Subtask("Новое имя сабтаска",
-               "Новое описание сабтаска", Status.IN_PROGRESS, epic1.getId()));
+                "Новое описание сабтаска", Status.IN_PROGRESS, epic1.getId()));
         inMemoryTaskManager.createSubtask(new Subtask("Новое имя сабтаска",
                 "Новое описание сабтаска", Status.IN_PROGRESS, epic1.getId()));
 

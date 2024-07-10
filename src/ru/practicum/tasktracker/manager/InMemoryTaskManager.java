@@ -92,7 +92,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task updateTask(Task task) {
         Integer taskId = task.getId();
-        if(taskId == null || !tasks.containsKey(taskId)) {
+        if (taskId == null || !tasks.containsKey(taskId)) {
             return null;
         }
         tasks.replace(taskId, task);
@@ -102,7 +102,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Epic updateEpic(Epic epic) {
         Integer epicId = epic.getId();
-        if(epicId == null || !epics.containsKey(epicId)) {
+        if (epicId == null || !epics.containsKey(epicId)) {
             return null;
         }
         Epic earlyEpic = epics.get(epicId);
@@ -126,7 +126,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Subtask updateSubtask(Subtask subtask) {
         Integer subtaskId = subtask.getId();
-        if(subtaskId == null || !subtasks.containsKey(subtaskId)) {
+        if (subtaskId == null || !subtasks.containsKey(subtaskId)) {
             return null;
         }
         int epicId = subtask.getEpicId();
@@ -191,7 +191,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteSubtask(int subtaskId) {
         Subtask subtask = subtasks.get(subtaskId);
 
-        if(subtask != null) {
+        if (subtask != null) {
             int epicId = subtask.getEpicId();
             Epic epic = epics.get(epicId);
             ArrayList<Subtask> subtaskList = epic.getSubtaskList();
