@@ -9,7 +9,7 @@ import ru.practicum.tasktracker.task.Task;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InMemoryHistoryManagerTest {
 
@@ -32,7 +32,7 @@ public class InMemoryHistoryManagerTest {
         }
 
         List<Task> list = inMemoryTaskManager.getHistory();
-        assertEquals(10, list.size(), "Неверное количество элементов в истории ");
+        assertEquals(tasks.size(), list.size(), "Неверное количество элементов в истории ");
     }
 
     @Test
@@ -63,25 +63,6 @@ public class InMemoryHistoryManagerTest {
         assertEquals(epic1.getDescription(), oldEpic.getDescription(),
                 "В истории не сохранилась старая версия эпика");
     }
-
-    // Этот тест для предыдущей версии кода
-//    @Test
-//    public void getHistoryShouldReturnOldSubtaskAfterUpdate() {
-//        Epic epic1 = new Epic("Имя эпика", "Описание эпика", Status.NEW);
-//        inMemoryTaskManager.createEpic(epic1);
-//        Subtask subtask1 = new Subtask("Имя сабтаска1", "Описание сабтаска1",
-//                Status.NEW, epic1.getId());
-//        inMemoryTaskManager.createSubtask(subtask1);
-//        inMemoryTaskManager.getSubtask(subtask1.getId());
-//        inMemoryTaskManager.updateSubtask(new Subtask(subtask1.getId(), "Новое имя сабтаска",
-//                "Новое описание сабтаска", Status.IN_PROGRESS, epic1.getId()));
-//        List<Task> subtasks = inMemoryTaskManager.getHistory();
-//        Subtask oldSubtask = (Subtask) subtasks.getFirst();
-//        assertEquals(subtask1.getName(), oldSubtask.getName(),
-//                "В истории не сохранилась старая версия сабтаска");
-//        assertEquals(subtask1.getDescription(), oldSubtask.getDescription(),
-//                "В истории не сохранилась старая версия сабтаска");
-//    }
 
     @Test
     public void getHistory() {
