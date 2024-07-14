@@ -37,12 +37,14 @@ public interface TaskManager {
 
     void deleteSubtasks();
 
-    boolean deleteTask(int taskId);
+    void deleteTask(int taskId);
 
-    boolean deleteEpic(int epicId);
+    void deleteEpic(int epicId);
 
-    boolean deleteSubtask(int subtaskId);
+    void deleteSubtask(int subtaskId);
 
     List<Task> getHistory();
+
+    void remove(int id);
 
 }
