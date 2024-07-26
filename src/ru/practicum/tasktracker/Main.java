@@ -1,13 +1,5 @@
 package ru.practicum.tasktracker;
 
-import ru.practicum.tasktracker.manager.*;
-import ru.practicum.tasktracker.task.Epic;
-import ru.practicum.tasktracker.enums.Status;
-import ru.practicum.tasktracker.task.Subtask;
-import ru.practicum.tasktracker.task.Task;
-
-import java.util.List;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -15,47 +7,47 @@ public class Main {
 //        testTasks();
 //
 //        testEpicsAndSubtasks();
-
-        printViewHistory();
+//
+//        printViewHistory();
     }
 
     // Доп задание спринта 6:
-    private static void printViewHistory() {
-        TaskManager taskManager = Managers.getInMemoryTaskManager(Managers.getDefaultHistory());
-
-        System.out.println("Тест истории");
-        System.out.println("Создание задач");
-        taskManager.createTask(new Task("Описание-1", "Task-1", Status.NEW)); // id 1
-        taskManager.createTask(new Task("Описание-2", "Task-2", Status.NEW)); // id 2
-        taskManager.createEpic(new Epic("Описание-1", "Epic-1", Status.NEW)); // id 3
-        taskManager.createEpic(new Epic("Описание-1", "Epic-2", Status.NEW)); // id 4
-        taskManager.createSubtask(new Subtask("Описание-1", "Subtask-1", Status.NEW, 3)); // id 5
-        taskManager.createSubtask(new Subtask("Описание-2", "Subtask-2", Status.NEW, 3)); // id 6
-        taskManager.createSubtask(new Subtask("Описание-3", "Subtask-3", Status.NEW, 3)); // id 7
-
-        System.out.println("Имитация просмотра задач");
-        taskManager.getTask(1);
-        taskManager.getEpic(3);
-        taskManager.getEpic(3);
-        taskManager.getEpic(3);
-        taskManager.getTask(1);
-        taskManager.getEpic(4);
-        taskManager.getSubtask(5);
-        taskManager.getSubtask(5);
-        taskManager.getSubtask(6);
-
-        System.out.println("Просмотр истории");
-        List<Task> history = taskManager.getHistory();
-        System.out.println(history);
-
-        System.out.println("Удаление из истории");
-        taskManager.remove(1);
-        taskManager.deleteEpic(3);
-
-        List<Task> historyAfterRemove = taskManager.getHistory();
-        System.out.println(historyAfterRemove);
-    }
-
+//    private static void printViewHistory() {
+//        TaskManager taskManager = Managers.getInMemoryTaskManager(Managers.getDefaultHistory());
+//
+//        System.out.println("Тест истории");
+//        System.out.println("Создание задач");
+//        taskManager.createTask(new Task("Описание-1", "Task-1", Status.NEW)); // id 1
+//        taskManager.createTask(new Task("Описание-2", "Task-2", Status.NEW)); // id 2
+//        taskManager.createEpic(new Epic("Описание-1", "Epic-1", Status.NEW)); // id 3
+//        taskManager.createEpic(new Epic("Описание-1", "Epic-2", Status.NEW)); // id 4
+//        taskManager.createSubtask(new Subtask("Описание-1", "Subtask-1", Status.NEW, 3)); // id 5
+//        taskManager.createSubtask(new Subtask("Описание-2", "Subtask-2", Status.NEW, 3)); // id 6
+//        taskManager.createSubtask(new Subtask("Описание-3", "Subtask-3", Status.NEW, 3)); // id 7
+//
+//        System.out.println("Имитация просмотра задач");
+//        taskManager.getTask(1);
+//        taskManager.getEpic(3);
+//        taskManager.getEpic(3);
+//        taskManager.getEpic(3);
+//        taskManager.getTask(1);
+//        taskManager.getEpic(4);
+//        taskManager.getSubtask(5);
+//        taskManager.getSubtask(5);
+//        taskManager.getSubtask(6);
+//
+//        System.out.println("Просмотр истории");
+//        List<Task> history = taskManager.getHistory();
+//        System.out.println(history);
+//
+//        System.out.println("Удаление из истории");
+//        taskManager.remove(1);
+//        taskManager.deleteEpic(3);
+//
+//        List<Task> historyAfterRemove = taskManager.getHistory();
+//        System.out.println(historyAfterRemove);
+//    }
+//
 //    private static void testTasks() {
 //        TaskManager inMemoryTaskManager = Managers.getInMemoryTaskManager(Managers.getDefaultHistory());
 //
