@@ -51,7 +51,7 @@ public class FileBackedTaskManagerTest {
                 "Несоответствие списка эпиков после чтения");
         assertEquals(2, fileManager.subtasks.size(),
                 "Несоответствие количества подзадач после чтения");
-        assertEquals(taskManager.getTasks(), fileManager.getTasks(),
+        assertEquals(taskManager.getSubtasks(), fileManager.getSubtasks(),
                 "Несоответствие списка подзадач после чтения");
         assertEquals(4, taskManager.id - 1,
                 "Несоответствие id последней добавленной задачи после чтения");
