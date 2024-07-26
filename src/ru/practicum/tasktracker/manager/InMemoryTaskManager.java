@@ -17,7 +17,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected final Map<Integer, Subtask> subtasks = new HashMap<>();
     protected final HistoryManager historyManager = Managers.getDefaultHistory();
 
-    public int id = 1;
+    public int id = 0;
 
     public InMemoryTaskManager() {
     }
@@ -238,6 +238,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private int getNextId() {
-        return id++;
+        return ++id;
     }
 }
