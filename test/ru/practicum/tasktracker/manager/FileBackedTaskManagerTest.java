@@ -31,11 +31,6 @@ public class FileBackedTaskManagerTest {
         taskManager.createSubtask(subtask3);
         subtask4 = new Subtask("Подзадача4", "Описание4", Status.NEW, epic2.getId());
         taskManager.createSubtask(subtask4);
-
-        taskManager.getTask(1);
-        taskManager.getEpic(2);
-        taskManager.getSubtask(3);
-        taskManager.getSubtask(4);
     }
 
     @Test
