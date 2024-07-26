@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    private final File FILE = new File("resources/kanban.csv");
+    private static final File FILE = new File("resources/kanban.csv");
 
     public FileBackedTaskManager() {
     }
