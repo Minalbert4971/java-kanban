@@ -1,6 +1,5 @@
 package ru.practicum.tasktracker.manager;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.practicum.tasktracker.enums.Status;
@@ -11,7 +10,6 @@ import ru.practicum.tasktracker.task.Task;
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FileBackedTaskManagerTest {
     FileBackedTaskManager taskManager = new FileBackedTaskManager();
@@ -57,10 +55,10 @@ public class FileBackedTaskManagerTest {
                 "Несоответствие id последней добавленной задачи после чтения");
     }
 
-    @AfterEach
-    void tearDown() {
-        if ((file.exists())) {
-            assertTrue(file.delete());
-        }
-    }
+//    @AfterEach
+//    void tearDown() {
+//        if ((file.exists())) {
+//            assertTrue(file.delete());
+//        }
+//    }
 }
