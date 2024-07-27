@@ -7,13 +7,10 @@ import ru.practicum.tasktracker.task.Epic;
 import ru.practicum.tasktracker.task.Subtask;
 import ru.practicum.tasktracker.task.Task;
 
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FileBackedTaskManagerTest {
-    FileBackedTaskManager taskManager = new FileBackedTaskManager();
-    private File file;
+    FileBackedTaskManager taskManager;
     protected Task task1;
     protected Epic epic2;
     protected Subtask subtask3;
@@ -21,8 +18,7 @@ public class FileBackedTaskManagerTest {
 
     @BeforeEach
     void setUp() {
-        file = new File("resources/kanban.csv");
-        taskManager = new FileBackedTaskManager();
+        taskManager = new FileBackedTaskManager("resources/kanban.csv");
         task1 = new Task("Задача1", "Описание1", Status.NEW);
         taskManager.createTask(task1);
         epic2 = new Epic("Эпик2", "Описание2", Status.NEW);
@@ -35,7 +31,8 @@ public class FileBackedTaskManagerTest {
 
     @Test
     void loadFromFile() {
-        FileBackedTaskManager fileManager = FileBackedTaskManager.loadFromFile(file);
+        FileBackedTaskManager fileManager = new FileBackedTaskManager("resources/kanban.csv");
+        fileManager.loadFromFile();
         assertEquals(1, fileManager.tasks.size(), "Несоответствие количества задач после чтения");
         assertEquals(taskManager.getTasks(), fileManager.getTasks(),
                 "Несоответствие списка задач после чтения");
@@ -46,14 +43,7 @@ public class FileBackedTaskManagerTest {
                 "Несоответствие количества подзадач после чтения");
         assertEquals(taskManager.getSubtasks(), fileManager.getSubtasks(),
                 "Несоответствие списка подзадач после чтения");
-        assertEquals(4, taskManager.id,
+        assertEquals(4, taskManager.getId(),
                 "Несоответствие id последней добавленной задачи после чтения");
     }
-
-//    @AfterEach
-//    void tearDown() {
-//        if ((file.exists())) {
-//            assertTrue(file.delete());
-//        }
-//    }
 }

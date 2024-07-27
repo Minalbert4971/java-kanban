@@ -11,13 +11,13 @@ import java.util.Objects;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    private static final File FILE = new File("resources/kanban.csv");
+    private final File file;
 
-    public FileBackedTaskManager() {
+    public FileBackedTaskManager(String fileName) {
+        this.file = new File(fileName);
     }
 
-    public static FileBackedTaskManager loadFromFile(File file) {
-        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
+    public void loadFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
             List<String> lines = reader.lines().toList();
 
@@ -26,27 +26,23 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 Task task = CSVFormatter.fromString(line);
                 switch (Objects.requireNonNull(task).getType()) {
                     case TASK:
-                        fileBackedTaskManager.tasks.put(task.getId(), task);
+                        tasks.put(task.getId(), task);
                         break;
                     case EPIC:
-                        fileBackedTaskManager.epics.put(task.getId(), (Epic) task);
+                        epics.put(task.getId(), (Epic) task);
                         break;
                     case SUBTASK:
-                        fileBackedTaskManager.subtasks.put(task.getId(), (Subtask) task);
+                        subtasks.put(task.getId(), (Subtask) task);
                         break;
-                }
-                if (task.getId() > fileBackedTaskManager.id) {
-                    fileBackedTaskManager.id = task.getId();
                 }
             }
         } catch (IOException e) {
             throw ManagerSaveException.loadException(e);
         }
-        return fileBackedTaskManager;
     }
 
     protected void save() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE, StandardCharsets.UTF_8))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8))) {
             bw.write(CSVFormatter.getHeader());
             bw.newLine();
             for (Task task : getTasks()) {
@@ -126,23 +122,17 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public Task getTask(int id) {
-        Task task = super.getTask(id);
-        save();
-        return task;
+        return super.getTask(id);
     }
 
     @Override
     public Epic getEpic(int id) {
-        Epic epic = super.getEpic(id);
-        save();
-        return epic;
+        return super.getEpic(id);
     }
 
     @Override
     public Subtask getSubtask(int id) {
-        Subtask subtask = super.getSubtask(id);
-        save();
-        return subtask;
+        return super.getSubtask(id);
     }
 
     @Override
