@@ -1,6 +1,7 @@
 package ru.practicum.tasktracker.task;
 
 import ru.practicum.tasktracker.enums.Status;
+import ru.practicum.tasktracker.enums.Type;
 
 public class Subtask extends Task {
 
@@ -16,7 +17,13 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
-    public int getEpicId() {
+    @Override
+    public Type getType() {
+        return Type.SUBTASK;
+    }
+
+    @Override
+    public Integer getEpicId() {
         return epicId;
     }
 

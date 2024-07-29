@@ -1,6 +1,7 @@
 package ru.practicum.tasktracker.task;
 
 import ru.practicum.tasktracker.enums.Status;
+import ru.practicum.tasktracker.enums.Type;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,10 @@ public class Epic extends Task {
     public Epic(String name, String description, Status status) {
         super(name, description, status);
 
+    }
+
+    public Epic(int id, String name, String description, Status status) {
+        super(id, name, description, status);
     }
 
     public void addSubtask(Subtask subtask) {
@@ -30,6 +35,10 @@ public class Epic extends Task {
 
     public void setSubtaskList(ArrayList<Subtask> subtaskList) {
         this.subtaskList = subtaskList;
+    }
+
+    public Type getType() {
+        return Type.EPIC;
     }
 
     @Override

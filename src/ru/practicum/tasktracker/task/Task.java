@@ -1,6 +1,7 @@
 package ru.practicum.tasktracker.task;
 
 import ru.practicum.tasktracker.enums.Status;
+import ru.practicum.tasktracker.enums.Type;
 
 import java.util.Objects;
 
@@ -50,6 +51,14 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Integer getEpicId() {
+        return null;
+    }
+
+    public Type getType() {
+        return Type.TASK;
     }
 
     @Override
