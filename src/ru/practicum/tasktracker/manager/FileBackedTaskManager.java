@@ -1,5 +1,6 @@
 package ru.practicum.tasktracker.manager;
 
+import ru.practicum.tasktracker.exceptions.ManagerSaveException;
 import ru.practicum.tasktracker.task.Epic;
 import ru.practicum.tasktracker.task.Subtask;
 import ru.practicum.tasktracker.task.Task;
@@ -27,12 +28,18 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 switch (Objects.requireNonNull(task).getType()) {
                     case TASK:
                         tasks.put(task.getId(), task);
+                        prioritizedTasks.add(task);
                         break;
                     case EPIC:
                         epics.put(task.getId(), (Epic) task);
                         break;
                     case SUBTASK:
                         subtasks.put(task.getId(), (Subtask) task);
+                        int epicId = task.getEpicId();
+                        List<Subtask> subtasks = epics.get(epicId).getSubtaskList();
+                        subtasks.add((Subtask) task);
+                        updateEpicStatus(epics.get(epicId));
+                        prioritizedTasks.add(task);
                         break;
                 }
             }
@@ -60,7 +67,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         } catch (IOException e) {
             throw ManagerSaveException.saveException(e);
         }
-
     }
 
     @Override
@@ -147,5 +153,24 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         Epic updatedEpic = super.updateEpic(epic);
         save();
         return updatedEpic;
+    }
+
+    @Override
+    public Subtask updateSubtask(Subtask subtask) {
+        Subtask updatedSubtask = super.updateSubtask(subtask);
+        save();
+        return updatedSubtask;
+    }
+
+    @Override
+    public void updateEpicStatus(Epic epic) {
+        super.updateEpicStatus(epic);
+        save();
+    }
+
+    @Override
+    public void setEpicDateTime(int epicId) {
+        super.setEpicDateTime(epicId);
+        save();
     }
 }

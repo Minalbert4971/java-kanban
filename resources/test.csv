@@ -1,0 +1,5 @@
+id,type,name,description,status, startTime, duration, epicId
+1,TASK,Задача,description1,NEW,14.08.24 00:00,14.08.24 00:01,1
+2,EPIC,Эпик,description2,NEW,15.08.24 00:00,16.08.24 00:01,1441
+3,SUBTASK,Подзадача,description3,NEW,15.08.24 00:00,15.08.24 00:01,1,2
+4,SUBTASK,Подзадача,description4,NEW,16.08.24 00:00,16.08.24 00:01,1,2
