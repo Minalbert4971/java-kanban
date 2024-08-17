@@ -119,19 +119,9 @@ public class InMemoryTaskManager implements TaskManager {
             return null;
         }
         Epic earlyEpic = epics.get(epicId);
-        List<Subtask> earlyEpicSubtaskList = earlyEpic.getSubtaskList();
-        if (!earlyEpicSubtaskList.isEmpty()) {
-            for (Subtask subtask : earlyEpicSubtaskList) {
-                subtasks.remove(subtask.getId());
-            }
-        }
+        earlyEpic.getSubtaskList().forEach(subtask -> subtasks.remove(subtask.getId()));
         epics.replace(epicId, epic);
-        List<Subtask> newEpicSubtaskList = epic.getSubtaskList();
-        if (!newEpicSubtaskList.isEmpty()) {
-            for (Subtask subtask : newEpicSubtaskList) {
-                subtasks.put(subtask.getId(), subtask);
-            }
-        }
+        epic.getSubtaskList().forEach(subtask -> subtasks.put(subtask.getId(), subtask));
         updateEpicStatus(epic);
         setEpicDateTime(epic.getId());
         return epic;
@@ -160,41 +150,39 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteTasks() {
-        for (Task task : tasks.values()) {
+        tasks.values().forEach(task -> {
             historyManager.remove(task.getId());
             prioritizedTasks.remove(task);
-        }
+        });
         tasks.clear();
     }
 
     @Override
     public void deleteEpics() {
-        for (Epic epic : epics.values()) {
+        epics.values().forEach(epic -> {
             epic.getSubtaskList().clear();
-            for (Subtask subtask : subtasks.values()) {
+            subtasks.values().forEach(subtask -> {
                 prioritizedTasks.remove(subtask);
                 subtasks.remove(subtask.getId());
                 historyManager.remove(subtask.getEpicId());
-            }
-        }
-        for (Integer id : epics.keySet()) {
-            historyManager.remove(id);
-        }
+            });
+        });
+        epics.keySet().forEach(historyManager::remove);
         epics.clear();
         subtasks.clear();
     }
 
     @Override
     public void deleteSubtasks() {
-        for (Subtask subtask : subtasks.values()) {
+        subtasks.values().forEach(subtask -> {
             historyManager.remove(subtask.getId());
             prioritizedTasks.remove(subtask);
-        }
-        for (Epic epic : epics.values()) {
+        });
+        epics.values().forEach(epic -> {
             epic.getSubtaskList().clear();
             updateEpicStatus(epic);
             setEpicDateTime(epic.getId());
-        }
+        });
         subtasks.clear();
     }
 
@@ -213,12 +201,11 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteEpic(int epicId) {
         Epic epic = epics.get(epicId);
         if (epic != null) {
-            List<Subtask> epicSubtasks = epic.getSubtaskList();
-            for (Subtask subtask : epicSubtasks) {
+            epic.getSubtaskList().forEach(subtask -> {
                 prioritizedTasks.remove(subtask);
                 subtasks.remove(subtask.getId());
                 historyManager.remove(subtask.getId());
-            }
+            });
             epics.remove(epic.getId());
             historyManager.remove(epic.getId());
         } else {
@@ -289,19 +276,16 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void setEpicDateTime(int epicId) {
-
         List<Subtask> subtasks = epics.get(epicId).getSubtaskList();
-        LocalDateTime startTime = subtasks.getFirst().getStartTime();
-        LocalDateTime endTime = subtasks.getFirst().getEndTime();
-
-        for (Subtask subtask : subtasks) {
-            if (subtask.getStartTime().isBefore(startTime)) startTime = subtask.getStartTime();
-            if (subtask.getEndTime().isAfter(endTime)) endTime = subtask.getEndTime();
-        }
-
-        epics.get(epicId).setStartTime(startTime);
-        epics.get(epicId).setEndTime(endTime);
-        Duration duration = Duration.between(startTime, endTime);
+        final LocalDateTime[] startTime = {subtasks.getFirst().getStartTime()};
+        final LocalDateTime[] endTime = {subtasks.getFirst().getEndTime()};
+        subtasks.forEach(subtask -> {
+            if (subtask.getStartTime().isBefore(startTime[0])) startTime[0] = subtask.getStartTime();
+            if (subtask.getEndTime().isAfter(endTime[0])) endTime[0] = subtask.getEndTime();
+        });
+        epics.get(epicId).setStartTime(startTime[0]);
+        epics.get(epicId).setEndTime(endTime[0]);
+        Duration duration = Duration.between(startTime[0], endTime[0]);
         epics.get(epicId).setDuration(duration);
     }
 
