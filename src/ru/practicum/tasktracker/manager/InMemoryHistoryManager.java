@@ -87,5 +87,4 @@ public class InMemoryHistoryManager implements HistoryManager {
     private Node getNode(int id) {
         return nodes.get(id);
     }
-
 }

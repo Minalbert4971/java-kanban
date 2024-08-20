@@ -47,4 +47,9 @@ public interface TaskManager {
 
     void remove(int id);
 
+    List<Task> getPrioritizedTasks();
+
+    void validate(Task task);
+
+    void setEpicDateTime(int epicId);
 }

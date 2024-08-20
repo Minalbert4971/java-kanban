@@ -7,6 +7,8 @@ import ru.practicum.tasktracker.task.Epic;
 import ru.practicum.tasktracker.task.Subtask;
 import ru.practicum.tasktracker.task.Task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Main {
@@ -25,13 +27,18 @@ public class Main {
 
         System.out.println("Тест истории");
         System.out.println("Создание задач");
-        taskManager.createTask(new Task("Описание-1", "Task-1", Status.NEW)); // id 1
-        taskManager.createTask(new Task("Описание-2", "Task-2", Status.NEW)); // id 2
+        taskManager.createTask(new Task("Описание-1", "Task-1", Status.NEW,
+                LocalDateTime.of(2024, 8, 12, 12, 12), Duration.ofMinutes(1))); // id 1
+        taskManager.createTask(new Task("Описание-2", "Task-2", Status.NEW,
+                LocalDateTime.of(2024, 8, 13, 12, 12), Duration.ofMinutes(1))); // id 2
         taskManager.createEpic(new Epic("Описание-1", "Epic-1", Status.NEW)); // id 3
         taskManager.createEpic(new Epic("Описание-1", "Epic-2", Status.NEW)); // id 4
-        taskManager.createSubtask(new Subtask("Описание-1", "Subtask-1", Status.NEW, 3)); // id 5
-        taskManager.createSubtask(new Subtask("Описание-2", "Subtask-2", Status.NEW, 3)); // id 6
-        taskManager.createSubtask(new Subtask("Описание-3", "Subtask-3", Status.NEW, 3)); // id 7
+        taskManager.createSubtask(new Subtask("Описание-1", "Subtask-1", Status.NEW,
+                LocalDateTime.of(2024, 8, 14, 12, 12), Duration.ofMinutes(1), 3)); // id 5
+        taskManager.createSubtask(new Subtask("Описание-2", "Subtask-2", Status.NEW,
+                LocalDateTime.of(2024, 8, 15, 12, 12), Duration.ofMinutes(1), 3)); // id 6
+        taskManager.createSubtask(new Subtask("Описание-3", "Subtask-3", Status.NEW,
+                LocalDateTime.of(2024, 8, 16, 12, 12), Duration.ofMinutes(1), 3)); // id 7
 
         System.out.println("Имитация просмотра задач");
         taskManager.getTask(1);
@@ -65,14 +72,16 @@ public class Main {
         System.out.println();
 
         System.out.println("Тест 2: Создание Task");
-        Task task1 = new Task("Имя", "Описание", Status.NEW);
+        Task task1 = new Task("Имя", "Описание", Status.NEW,
+                LocalDateTime.of(2025, 12, 12, 12, 12), Duration.ofMinutes(1));
         Task task1Created = inMemoryTaskManager.createTask(task1);
         System.out.println("Созданная Task должна содержать id: " + (task1Created.getId() != null));
         System.out.println("Список Tasks должен содержать эту Task: " + inMemoryTaskManager.getTasks());
         System.out.println();
 
         System.out.println("Тест 3: Обновление Task");
-        Task task2 = new Task(task1Created.getId(), "Имя новое", "Описание новое", Status.IN_PROGRESS);
+        Task task2 = new Task(task1Created.getId(), "Имя новое", "Описание новое", Status.IN_PROGRESS,
+                LocalDateTime.of(2025, 1, 12, 12, 12), Duration.ofMinutes(1));
         Task task2Updated = inMemoryTaskManager.updateTask(task2);
         System.out.println("Обновленная Task должна иметь обновленные поля: " + task2Updated);
         System.out.println();
@@ -101,7 +110,8 @@ public class Main {
 
         System.out.println("Тест 7: Создание Subtask1 в Epic");
         Subtask subtask1 = new Subtask("Имя сабтаска1", "Описание сабтаска1",
-                Status.NEW, epic1Created.getId());
+                Status.NEW, LocalDateTime.of(2025, 12, 12, 12, 12),
+                Duration.ofMinutes(1), epic1Created.getId());
         Task subtask1Created = inMemoryTaskManager.createSubtask(subtask1);
         System.out.println("Созданный Subtask1 должен содержать id: " + (subtask1Created.getId() != null));
         System.out.println("Список Subtasks должен содержать этот Subtask1: " + inMemoryTaskManager.getSubtasks());
@@ -109,7 +119,8 @@ public class Main {
 
         System.out.println("Тест 8: Создание Subtask2 в Epic");
         Subtask subtask2 = new Subtask("Имя сабтаска2", "Описание сабтаска2",
-                Status.NEW, epic1Created.getId());
+                Status.NEW, LocalDateTime.of(2025, 12, 13, 12, 12),
+                Duration.ofMinutes(1), epic1Created.getId());
         Task subtask2Created = inMemoryTaskManager.createSubtask(subtask2);
         System.out.println("Созданный Subtask2 должен содержать id: " + (subtask2Created.getId() != null));
         System.out.println("Список Subtasks должен содержать этот Subtask2 и остальные Subtask: "
@@ -119,7 +130,8 @@ public class Main {
         System.out.println("Тест 9: Обновление Subtask1, списка Subtasks и статуса Epic");
         Subtask subtask3 = new Subtask(subtask1Created.getId(), "Имя Subtask новое",
                 "Описание Subtask новое",
-                Status.IN_PROGRESS, epic1Created.getId());
+                Status.IN_PROGRESS, LocalDateTime.of(2025, 12, 14, 12, 12),
+                Duration.ofMinutes(1), epic1Created.getId());
         Subtask subtask3Updated = inMemoryTaskManager.updateSubtask(subtask3);
         System.out.println("Обновленная Subtask3 должна иметь обновленные поля: " + subtask3Updated +
                 "Список Subtasks должен обновиться: " + inMemoryTaskManager.getSubtasks() +
