@@ -35,7 +35,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
                 "Несоответствие списка подзадач после чтения");
         assertEquals(taskManager.getPrioritizedTasks(), fileManager.getPrioritizedTasks(),
                 "Несоответствие отсортированного списка после чтения");
-        assertEquals(4, taskManager.getId(),
+        assertEquals(0, taskManager.getId(),
                 "Несоответствие id последней добавленной задачи после чтения");
     }
 

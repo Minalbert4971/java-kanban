@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 public class ManagersTest {
     @Test
     void getDefaultShouldInitializeInMemoryTaskManager() {
-        assertInstanceOf(InMemoryTaskManager.class, Managers.getInMemoryTaskManager(Managers.getDefaultHistory()));
+        assertInstanceOf(InMemoryTaskManager.class, Managers.getInMemoryTaskManager());
     }
 
     @Test

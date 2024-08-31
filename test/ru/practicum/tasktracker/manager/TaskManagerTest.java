@@ -2,7 +2,8 @@ package ru.practicum.tasktracker.manager;
 
 import org.junit.jupiter.api.Test;
 import ru.practicum.tasktracker.enums.Status;
-import ru.practicum.tasktracker.exceptions.ValidationException;
+import ru.practicum.tasktracker.exceptions.PriorityTaskException;
+import ru.practicum.tasktracker.exceptions.TaskNotFoundException;
 import ru.practicum.tasktracker.task.Epic;
 import ru.practicum.tasktracker.task.Subtask;
 import ru.practicum.tasktracker.task.Task;
@@ -124,7 +125,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         assertNotNull(taskManager.getTasks(), "Список задач не заполнен");
         assertEquals(1, taskManager.getTasks().size(), "Неверное количество задач.");
         taskManager.deleteTask(1);
-        assertNull(taskManager.getTask(1), "Задача не удалена");
+        assertThrows(TaskNotFoundException.class, () -> taskManager.getTask(1), "Задача не удалена");
         Task taskPriority = taskManager.getPrioritizedTasks().stream()
                 .filter(task -> task.getId() == 1)
                 .findFirst()
@@ -137,7 +138,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         assertNotNull(taskManager.getSubtasks(), "Список подзадач не заполнен");
         assertEquals(2, taskManager.getSubtasks().size(), "Неверное количество задач.");
         taskManager.deleteSubtask(3);
-        assertNull(taskManager.getSubtask(3), "Подзадача не удалена");
+        assertThrows(TaskNotFoundException.class, () -> taskManager.getSubtask(3), "Подзадача не удалена");
         Task subtaskPriority = taskManager.getPrioritizedTasks().stream()
                 .filter(task -> task.getId() == 3)
                 .findFirst()
@@ -149,7 +150,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     void deleteEpic() {
         assertNotNull(taskManager.getEpics(), "Список эпиков не заполнен");
         taskManager.deleteEpic(2);
-        assertNull(taskManager.getEpic(2), "Эпик не удален");
+        assertThrows(TaskNotFoundException.class, () -> taskManager.getEpic(2), "Эпик не удален");
     }
 
     @Test
@@ -157,7 +158,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         Task task1 = new Task("Задача1", "description1", Status.NEW, DATE, Duration.ofMinutes(1));
         Task task2 = new Task("Задача2", "description2", Status.NEW, DATE, Duration.ofMinutes(1));
 
-        ValidationException exception = assertThrows(ValidationException.class,
+        PriorityTaskException exception = assertThrows(PriorityTaskException.class,
                 () -> {
                     taskManager.createTask(task1);
                     taskManager.createTask(task2);
