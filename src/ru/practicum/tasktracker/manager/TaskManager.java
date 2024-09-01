@@ -52,4 +52,6 @@ public interface TaskManager {
     void validate(Task task);
 
     void setEpicDateTime(int epicId);
+
+    void clearPrioritizedTasks();
 }

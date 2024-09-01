@@ -23,7 +23,7 @@ public class Main {
     }
 
     private static void printViewHistory() {
-        TaskManager taskManager = Managers.getInMemoryTaskManager(Managers.getDefaultHistory());
+        TaskManager taskManager = Managers.getInMemoryTaskManager();
 
         System.out.println("Тест истории");
         System.out.println("Создание задач");
@@ -64,7 +64,7 @@ public class Main {
     }
 
     private static void testTasks() {
-        TaskManager inMemoryTaskManager = Managers.getInMemoryTaskManager(Managers.getDefaultHistory());
+        TaskManager inMemoryTaskManager = Managers.getInMemoryTaskManager();
 
         System.out.println("Тест 1: Пустой список Tasks");
         List<Task> tasks = inMemoryTaskManager.getTasks();
@@ -93,7 +93,7 @@ public class Main {
     }
 
     private static void testEpicsAndSubtasks() {
-        TaskManager inMemoryTaskManager = Managers.getInMemoryTaskManager(Managers.getDefaultHistory());
+        TaskManager inMemoryTaskManager = Managers.getInMemoryTaskManager();
 
         System.out.println("Тест 5: Пустые списки Epics и Subtasks");
         List<Epic> epics = inMemoryTaskManager.getEpics();
